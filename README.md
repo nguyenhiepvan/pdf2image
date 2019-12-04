@@ -34,6 +34,6 @@ This can be fixed by adding the following line at the end of your ```php-fpm.con
 ```env[PATH] = /usr/local/bin:/usr/bin:/bin```
 This will instruct PHP FPM to look for the ```gs``` binary in the right places.
 ## Security
-If you discover any security related issues, please email [Dr. Hiep Nguyen](mailto:nguyenhiepvan.bka@gmail.com?subject=[GitHub]%20Problem%20with%20p) instead of using the issue tracker.
+If you discover any security related issues, please email [Mr. Hiep Nguyen](mailto:nguyenhiepvan.bka@gmail.com?subject=[GitHub]%20Problem%20with%20p) instead of using the issue tracker.
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
