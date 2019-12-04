@@ -1,5 +1,21 @@
 {
+    "name": "nguyenhiep/pdf2image",
+    "description": "Allow you cropping an image from file pdf",
+    "type": "library",
     "require": {
-        "spatie/pdf-to-image": "^1.8"
-    }
+        "symfony/process": "^5.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Nguyenhiep\\Pdf2image\\": "src/"
+        }   
+    },
+    "minimum-stability": "dev",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "HiepNguyen",
+            "email": "nguyenhiepvan.bka@gmail.com"
+        }
+    ]
 }
