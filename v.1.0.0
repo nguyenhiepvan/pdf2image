@@ -1,0 +1,5 @@
+git push --tags
+#
+# Write a message for tag:
+#   1.0.0
+# Lines starting with '#' will be ignored.

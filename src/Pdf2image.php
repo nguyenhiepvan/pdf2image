@@ -6,17 +6,6 @@ use Symfony\Component\Process\Process;
 use DateTime;
 class Pdf2image
 {
-	public function say($toSay = "Nothing given")
-	{
-		$process = new Process(['ls', '-lsa']);
-		$process->run();
-		if (!$process->isSuccessful()) {
-			throw new ProcessFailedException($process);
-		}
-
-		echo $process->getOutput();
-	}
-
 	public function cropImage($pdf,$page,$width, $height, $startX, $startY)
 	{
 		$date = new DateTime();
@@ -27,12 +16,40 @@ class Pdf2image
 		$process = Process::fromShellCommandline($make_folder);
 		$process->run();
 
-		$im = new \Imagick();
+		try {
+			$im = new \Imagick();
+			$image = file_get_contents($pdf);
+			$im -> readImageBlob($image);
+		} catch (ImagickException $e) {
+			return false; 
+		}
+		if($page > $im->getNumberImages()){
+			return false;
+		}
 		$im->readimage(''.$pdf.'['.($page-1).']'); 
+
+		$d = $im->getImageGeometry();
+		$w = $d['width'];
+		$h = $d['height'];
+		if ($width > $w) {
+			return false;
+		}
+		if ($height > $h) {
+			return false;
+		}
+		if ($startX > $w) {
+			return false;
+		}
+		if ($startY > $w) {
+			return false;
+		}
+
 		$im->setImageFormat('jpeg');    
 		$im->cropImage($width, $height, $startX, $startY);   
-		$im->writeImage($folder_images.'/'.$now.'.png'); 
-		$im->clear(); 
-		$im->destroy();
+		if($im->writeImage($folder_images.'/'.$now.'.png')){
+			$im->clear(); 
+			$im->destroy();
+			return true;
+		}
 	}
 }
