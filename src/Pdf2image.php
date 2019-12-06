@@ -16,13 +16,19 @@ class Pdf2image
 		$process = Process::fromShellCommandline($make_folder);
 		$process->run();
 
-		try {
-			$im = new \Imagick();
-			$image = file_get_contents($pdf);
-			$im -> readImageBlob($image);
-		} catch (ImagickException $e) {
-			return false; 
+		if(!file_exists($pdf)){
+			return false;
 		}
+
+		$file_parts = pathinfo($pdf);
+		if ($file_parts['extension'] != 'pdf' && $file_parts['extension'] != 'PDF') {
+			return false;
+		}
+
+		$im = new \Imagick();
+		$im->pingImage($pdf);
+
+
 		if($page > $im->getNumberImages()){
 			return false;
 		}

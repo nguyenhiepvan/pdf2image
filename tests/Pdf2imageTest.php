@@ -18,10 +18,17 @@ class Pdf2imageTest extends TestCase
 		$this->assertTrue($result);
 	}
 	//Kiểm tra lỗi file không hợp lệ
-	public function testCropImageReturnFalseForInvalidFile()
+	public function testCropImageReturnFalseForInvalidFilePath()
 	{
 		$pdf2image = new Pdf2image;
-		$result = $pdf2image->cropImage(__DIR__.'demo000.pdf',1,100,100,100,100);
+		$result = $pdf2image->cropImage(__DIR__.'/demo000.pdf',1,100,100,100,100);
+
+		$this->assertFalse($result);
+	}
+	public function testCropImageReturnFalseForInvalidTypeFile()
+	{
+		$pdf2image = new Pdf2image;
+		$result = $pdf2image->cropImage(__DIR__.'/demo.jpg',1,100,100,100,100);
 
 		$this->assertFalse($result);
 	}
